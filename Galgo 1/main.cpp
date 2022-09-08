@@ -1,4 +1,5 @@
 #include <iostream>
+#include "langford.h"
 using namespace std;
 
 /*
@@ -42,10 +43,9 @@ int main() {
 	return 0;
 }
 
-bool EsSecuenciaLangford(int secuenciaNumeros[], unsigned int n){
+bool EsSecuenciaLangford(int secuenciaNumeros[], int n) {
 
 }
-
 
 void Mostrar(bool value){
 	if(value){
@@ -163,13 +163,13 @@ void TestLangford16()
 
 void EjecutarPruebasUnitarias()
 {
-	/*TestEjemplo1();
+	TestEjemplo1();
 	TestEjemplo2();
-	TestEjemplo3();*/
-	TestLangford7A();/*
+	TestEjemplo3();
+	TestLangford7A();
 	TestLangford7B();
 	TestLangford8A();
 	TestLangford8B();
-	TestLangford16();*/
+	TestLangford16();
 }
 

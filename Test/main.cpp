@@ -1,55 +1,116 @@
 #include <iostream>
+#include <cstdio>
 using namespace std;
+const static int N = 7;
 
-const int arrLen = 8;
-const int seqLen = 8;
 
-bool langfordSequence(int * arr, int indx, int *seq, int pos);
-int main() {
+bool explore(int* sol, int gap, int len);
+void explore_all(int* sol, int gap, int len);
+bool explore1(int* sol, int gap, int len);
 
-    int arr[] = {1,1,2,2,3,3,4,4};
-    int seq[] = {0,0,0,0,0,0,0,0};
+void print(int* sol, int N){
+    if(sol == nullptr){
+        cout << "Not exist a langford pair.\n";
+        return;
+    }
 
-    bool test = langfordSequence(arr, 0, seq, 0);
+    printf("[ ");
+    for(int i = 0; i < N; ++i){
+        printf("%d ", sol[i]);
+    }
+    printf("]\n");
+}
 
-    if (test)
-        cout << "Langford Sequence Successful: " << endl;
-    else
-        cout << "Langford Sequence Failed: " << endl;
+int* exist_langford(int N){
+    int* langford = new int[2*N];
+    if(explore(langford, N, 2*N)) return langford;
+    return nullptr;
+}
 
-    for (int i = 0; i < seqLen; i++)
-    {
-        cout << seq[i] << " ";
-    }   
+void get_all_langford(int N){
+    int* langford = new int[2*N];
+
+    explore_all(langford, N, 2*N);
+}
+
+
+bool explore(int* sol, int gap, int len){
+    if(gap == 0){
+        cout <<"Yes!\n";
+        return true;
+    }
+    for(int i = len - 1; i - gap > 0 ; i--) {
+        if(sol[i] == 0 && sol[i - gap - 1] == 0){
+            sol[i] = gap;
+            sol[i - gap - 1] = gap;
+            if(explore(sol, gap - 1, len)) return true;
+            else{
+                sol[i] = 0;
+                sol[i - gap - 1] = 0;
+            }
+        }
+    }
+    return false;
+}
+
+void explore_all(int* sol, int gap, int len){
+    if(gap == 0){
+        print(sol, 2*N);
+        return;
+    }
+    for(int i = len - 1; i - gap > 0 ; i--) {
+        if(sol[i] == 0 && sol[i - gap - 1] == 0){
+            sol[i] = gap;
+            sol[i - gap - 1] = gap;
+            explore_all(sol, gap - 1, len); //return true;
+            sol[i] = 0;
+            sol[i - gap - 1] = 0;
+            // if(gap - 1 == 0) return;
+        }
+    }
+    return;
+}
+
+int *exist_langford1(int N){
+    int * sol = new int[2*N];
+    if(explore1(sol, 1, 2*N)) return sol;
+    return nullptr;
+
+}
+
+bool explore1(int *a, int gap, int len){
+
+    // printf("len=%d, gap=%d\n", len, gap);
+
+    if(gap == len/2 + 1){
+        cout << "gap = " << gap << endl;
+        return true;
+    }
+    for(int i = 0; i < len - gap - 1; ++i){
+        if(a[i] == 0 && a[i + gap + 1] == 0){
+            a[i] = a[i + gap + 1] = gap;
+            if(explore1(a, gap + 1, len)) return true;
+            else{
+                a[i] = 0;
+                a[i + gap + 1] = 0;
+            }
+        }
+    }
+    return false;
+}
+
+
+
+int main(){
+
+    // exist_langford(N);
+    get_all_langford(N);
+    // int *sol = exist_langford(N);
+    // print(sol, 2*N);
+
+    // int *sol1 = exist_langford1(N);
+    // print(sol1, 2*N);
+
     return 0;
 }
 
-bool langfordSequence(int * arr, int indx, int *seq, int pos)
-{
-
-    if (indx >= arrLen - 1) //this means we've reached the end of the array
-        return true;
-
-    if (pos + arr[indx] + 1 >= seqLen)  //if the second part of the number is off the array
-        return false;
-
-    if (seq[pos] == 0 && seq[pos + arr[indx] + 1] == 0)
-    {
-        seq[pos] = arr[indx];
-        seq[pos + arr[indx] + 1] = arr[indx];
-        if (langfordSequence(arr, indx + 2, seq, 0))    //the current pair is good, go to the next one, start from the beginning
-            return true;
-        else
-        {
-            seq[pos] = 0;
-            seq[pos + arr[indx] + 1] = 0;
-            if (langfordSequence(arr, indx, seq, pos + 1))
-                return true;
-        }
-    }
-    else
-    {
-        if (langfordSequence(arr, indx, seq, pos + 1))  //current position is no good, try next position
-            return true;
-    }
-}
