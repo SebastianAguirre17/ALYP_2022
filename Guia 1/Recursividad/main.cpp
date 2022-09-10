@@ -6,6 +6,7 @@ int ObtenerFibonacci(int n);
 int ObtenerFactorial(int n);
 void MostrarReversa(char cadena[], int indiceComienzo);
 bool PuedoLlegarAPlantaBaja(int boton1, int boton2, int piso);
+int ObtenerFibonacciGeneralizado(int primerValor, int segundoValor, int n);
 
 int main() {
 
@@ -80,4 +81,13 @@ bool PuedoLlegarAPlantaBaja(int boton1, int boton2, int piso) {
         opcion2 = PuedoLlegarAPlantaBaja(boton1, boton2, piso - boton2);
 
     return opcion1 or opcion2;
+}
+
+int ObtenerFibonacciGeneralizado(int primerValor, int segundoValor, int n) {
+	if (n == 0)
+		return primerValor;
+	if (n == 1)
+		return segundoValor;
+        
+	return ObtenerFibonacciGeneralizado(primerValor, segundoValor, n-1) + ObtenerFibonacciGeneralizado(primerValor, segundoValor, n-2);
 }

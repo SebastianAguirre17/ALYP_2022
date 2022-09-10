@@ -1,5 +1,4 @@
 #include <iostream>
-#include "langford.h"
 using namespace std;
 
 /*
@@ -23,6 +22,21 @@ using namespace std;
  */
 bool EsSecuenciaLangford(int secuenciaNumeros[], unsigned int n);
 
+// Postcondicion: Devuelve true si @n es congruente a 0 o 3 módulo de 4.
+bool ExisteSecuenciaLangfordParaN(unsigned int n);
+
+// Postcondicion: Develve la cantidad de apariciones de @n en la secuencia.
+int ContarAparicionesEnSecuencia(int secuenciaNumeros[], int cantElementos, int n);
+
+// Postcondicion: Devuelve true si @n aparece 2 veces en la secuencia.
+bool EsPosibleSecuenciaLangfordValida(int secuenciaNumeros[], unsigned int n);
+
+// Postcondicion: Devuelve true si el patron Langford es valido
+bool EsSecuenciaLangfordValida(int secuenciaNumeros[], unsigned int n);
+
+// Devuelve true si los numeros se encuetran en la posicion correcta.
+bool EsPatronLangfordValido(int secuenciaNumeros[], unsigned int n);
+
 /* Pruebas unitarias */
 void EjecutarPruebasUnitarias();
 void TestEjemplo1();
@@ -43,9 +57,46 @@ int main() {
 	return 0;
 }
 
-bool EsSecuenciaLangford(int secuenciaNumeros[], int n) {
-
+bool EsSecuenciaLangford(int secuenciaNumeros[], unsigned int n) {
+	return ExisteSecuenciaLangfordParaN(n) 
+			and EsPosibleSecuenciaLangfordValida(secuenciaNumeros, n)
+			and EsPatronLangfordValido(secuenciaNumeros, n);
 }
+
+bool ExisteSecuenciaLangfordParaN(unsigned int n) {
+	return (n % 4) == 0 or (n % 4) == 3;
+}
+
+bool EsPosibleSecuenciaLangfordValida(int secuenciaNumeros[], unsigned int n) {
+	bool result = true;
+	int i = 1, tope = n * 2;
+	while (result and i <= n) {
+		result = ContarAparicionesEnSecuencia(secuenciaNumeros, tope, i) == 2;
+		i++;
+	}
+	return result;
+}
+
+int ContarAparicionesEnSecuencia(int secuenciaNumeros[], int cantElementos, int n) {
+	int result = 0;
+	for (int i = 0; i < cantElementos; ++i) {
+		if (secuenciaNumeros[i] == n)
+			result++;
+	}
+	return result;
+}
+
+bool EsPatronLangfordValido(int secuenciaNumeros[], unsigned int n) {
+	bool result = true;
+	for (int i = 0; i <= n; i++) {
+		int aux = secuenciaNumeros[i];
+		cout << "i: " << i << " aux: " << aux << " otro indice: " << i + aux << " valor: " << secuenciaNumeros[i + aux] << endl;
+		if (aux != secuenciaNumeros[i + aux])
+			result = false;
+	}
+	return result;
+}
+
 
 void Mostrar(bool value){
 	if(value){
@@ -163,13 +214,13 @@ void TestLangford16()
 
 void EjecutarPruebasUnitarias()
 {
-	TestEjemplo1();
-	TestEjemplo2();
-	TestEjemplo3();
-	TestLangford7A();
+	//TestEjemplo1();
+	//TestEjemplo2();
+	//TestEjemplo3();
+	//TestLangford7A();
 	TestLangford7B();
-	TestLangford8A();
-	TestLangford8B();
-	TestLangford16();
+	//TestLangford8A();
+	//TestLangford8B();
+	//TestLangford16();
 }
 
