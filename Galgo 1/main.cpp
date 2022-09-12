@@ -25,17 +25,23 @@ bool EsSecuenciaLangford(int secuenciaNumeros[], unsigned int n);
 // Postcondicion: Devuelve true si @n es congruente a 0 o 3 módulo de 4.
 bool ExisteSecuenciaLangfordParaN(unsigned int n);
 
-// Postcondicion: Develve la cantidad de apariciones de @n en la secuencia.
-int ContarAparicionesEnSecuencia(int secuenciaNumeros[], int cantElementos, int n);
-
-// Postcondicion: Devuelve true si @n aparece 2 veces en la secuencia.
-bool EsPosibleSecuenciaLangfordValida(int secuenciaNumeros[], unsigned int n);
-
-// Postcondicion: Devuelve true si el patron Langford es valido
-bool EsSecuenciaLangfordValida(int secuenciaNumeros[], unsigned int n);
-
-// Devuelve true si los numeros se encuetran en la posicion correcta.
+// Postcondicion: Devuelve true, si los numeros de 1 a @n aparecen dos veces en la secuencia.
 bool EsPatronLangfordValido(int secuenciaNumeros[], unsigned int n);
+
+// Postcondicion: Develve la cantidad de apariciones de @n en la secuencia.
+int ContarOcurrencias(int secuenciaNumeros[], int cantElementos, int n);
+
+// Postcondicion: Devuelve true si los elementos de la secuencia estan en la posicion correcta.
+bool ElementosEnPosicionCorrecta(int secuenciaNumeros[], unsigned int n);
+
+// Postcondicion: Verifica que el elemnto del @indice esta en la posicion correcta.
+bool VerficarPosicionEnSecuencia(int secuenciaNumeros[], int cantElementos, int indice);
+
+// Postcondicion: 
+bool EstaEnPosicionSiguiente(int secuenciaNumeros[], int cantElementos, int indice);
+
+// Postcondicion: 
+bool EstaEnPosicionAterior(int secuenciaNumeros[], int cantElementos, int indice);
 
 /* Pruebas unitarias */
 void EjecutarPruebasUnitarias();
@@ -57,46 +63,65 @@ int main() {
 	return 0;
 }
 
-bool EsSecuenciaLangford(int secuenciaNumeros[], unsigned int n) {
+bool EsSecuenciaLangford(int secuenciaNumeros[], unsigned int n){
 	return ExisteSecuenciaLangfordParaN(n) 
-			and EsPosibleSecuenciaLangfordValida(secuenciaNumeros, n)
-			and EsPatronLangfordValido(secuenciaNumeros, n);
+			and EsPatronLangfordValido(secuenciaNumeros, n)
+			and ElementosEnPosicionCorrecta(secuenciaNumeros, n);
 }
 
 bool ExisteSecuenciaLangfordParaN(unsigned int n) {
 	return (n % 4) == 0 or (n % 4) == 3;
 }
 
-bool EsPosibleSecuenciaLangfordValida(int secuenciaNumeros[], unsigned int n) {
-	bool result = true;
-	int i = 1, tope = n * 2;
-	while (result and i <= n) {
-		result = ContarAparicionesEnSecuencia(secuenciaNumeros, tope, i) == 2;
-		i++;
-	}
-	return result;
-}
-
-int ContarAparicionesEnSecuencia(int secuenciaNumeros[], int cantElementos, int n) {
-	int result = 0;
-	for (int i = 0; i < cantElementos; ++i) {
-		if (secuenciaNumeros[i] == n)
-			result++;
-	}
-	return result;
-}
-
 bool EsPatronLangfordValido(int secuenciaNumeros[], unsigned int n) {
 	bool result = true;
-	for (int i = 0; i <= n; i++) {
-		int aux = secuenciaNumeros[i];
-		cout << "i: " << i << " aux: " << aux << " otro indice: " << i + aux << " valor: " << secuenciaNumeros[i + aux] << endl;
-		if (aux != secuenciaNumeros[i + aux])
-			result = false;
+	for (int i = 1, cantElementos = n * 2; i <= n and result; ++i) {
+		result = ContarOcurrencias(secuenciaNumeros, cantElementos, i) == 2;
 	}
 	return result;
 }
 
+int ContarOcurrencias(int secuenciaNumeros[], int cantElementos, int n) {
+    int ocurrencias = 0;
+	for (int i = 0; i < cantElementos; ++i) {
+		if (secuenciaNumeros[i] == n)
+			ocurrencias++;
+	}
+	return ocurrencias;
+}
+
+bool ElementosEnPosicionCorrecta(int secuenciaNumeros[], unsigned int n) {
+	bool result = true;
+	for (int i = 0, cantElementos = n * 2; i < cantElementos; ++i) {
+		result = VerficarPosicionEnSecuencia(secuenciaNumeros, cantElementos, i);
+	}
+	return result;
+}
+
+bool VerficarPosicionEnSecuencia(int secuenciaNumeros[], int cantElementos, int indice) {
+	return EstaEnPosicionAterior(secuenciaNumeros, cantElementos, indice) 
+			or EstaEnPosicionSiguiente(secuenciaNumeros, cantElementos, indice);
+}
+
+bool EstaEnPosicionAterior(int secuenciaNumeros[], int cantElementos, int indice) {
+	bool result = false;
+	if (indice >= 0 and indice < cantElementos) {
+		int indiceAnterior = indice - secuenciaNumeros[indice] - 1;
+		if (indiceAnterior >= 0)
+			result = secuenciaNumeros[indice] == secuenciaNumeros[indiceAnterior];
+	}
+	return result;
+}	
+
+bool EstaEnPosicionSiguiente(int secuenciaNumeros[], int cantElementos, int indice) {
+	bool result = false;
+	if (indice >= 0 and indice < cantElementos) {
+		int indicePosterior = indice - secuenciaNumeros[indice] - 1;
+		if (indicePosterior >= 0)
+			result = secuenciaNumeros[indice] == secuenciaNumeros[indicePosterior];
+	}
+	return result;
+}
 
 void Mostrar(bool value){
 	if(value){
@@ -214,13 +239,13 @@ void TestLangford16()
 
 void EjecutarPruebasUnitarias()
 {
-	//TestEjemplo1();
-	//TestEjemplo2();
-	//TestEjemplo3();
-	//TestLangford7A();
+	TestEjemplo1();
+	TestEjemplo2();
+	TestEjemplo3();
+	TestLangford7A();
 	TestLangford7B();
-	//TestLangford8A();
-	//TestLangford8B();
-	//TestLangford16();
+	TestLangford8A();
+	TestLangford8B();
+	TestLangford16();
 }
 

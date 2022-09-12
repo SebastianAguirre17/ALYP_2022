@@ -2,7 +2,7 @@
 using namespace std;
 
 /*
- * Precondicion: @secuenciaNumeros es un array de tamaño igual al doble del parametro @n
+ * Precondicion: @secuenciaNumeros es un array de tamaï¿½o igual al doble del parametro @n
  * Postcondicion: Devuelve true si @secuenciaNumeros es un patron de Langford caso contrario devuelve false.
  * Es decir que debe validar las doscondiciones del patron de Langford: los elementos presentes (que sean los determinados por 2N) y la posicion en donde se encuentran
  * Ejemplo 1:
@@ -98,6 +98,9 @@ bool ChequearDistancia(int secuenciaNumeros[], int indice, int tope) {
 	}
 	return DistanciaValida;
 }
+
+
+
 
 
 void Mostrar(bool value){
