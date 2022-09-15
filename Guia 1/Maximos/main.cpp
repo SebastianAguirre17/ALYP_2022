@@ -28,3 +28,17 @@ int ObtenerMaximo(int vector[], int indiceComienzo, int indiceFin) {
 
     return proximo > maximo ? proximo : maximo;
 }
+
+int ObtenerMaximo2(int vector[], int indiceComienzo, int indiceFin) {
+    int maximo;
+    if (indiceComienzo == indiceFin)
+        maximo = vector[indiceComienzo];
+    else {
+        int indiceMitad = (indiceComienzo + indiceFin) / 2;
+        int maximoPrimeraMitad = ObtenerMaximo2(vector, indiceComienzo, indiceMitad);
+        int maximoSegundaMitad = ObtenerMaximo2(vector, indiceMitad + 1, indiceFin);
+        maximo = (maximoPrimeraMitad > maximoSegundaMitad) ? maximoPrimeraMitad : maximoSegundaMitad;
+    }
+
+    return maximo;
+}

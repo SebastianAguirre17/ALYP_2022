@@ -10,7 +10,7 @@ void PruebaSwap2();
 int main() {
 
     std::cout << "----------------------------------\n"; 
-    std::cout << "\tRECURSIVIDAD 2\n"; 
+    std::cout << "\tPUNTEROS\n"; 
     std::cout << "----------------------------------\n\n"; 
 
 
