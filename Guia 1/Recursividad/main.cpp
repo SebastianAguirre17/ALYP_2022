@@ -91,3 +91,4 @@ int ObtenerFibonacciGeneralizado(int primerValor, int segundoValor, int n) {
         
 	return ObtenerFibonacciGeneralizado(primerValor, segundoValor, n-1) + ObtenerFibonacciGeneralizado(primerValor, segundoValor, n-2);
 }
+
