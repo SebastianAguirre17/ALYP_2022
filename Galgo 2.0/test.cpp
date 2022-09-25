@@ -6,17 +6,9 @@ using namespace std;
 
 
 int main() {
-	char texto[] = "cinco,name,pep,defender_king";
-    const char* pTexto = texto;
-
-    char textoCopiado[10];
-
-    CopiarCampo(2, texto, ',', textoCopiado);
-
-    cout << "Copia: " << textoCopiado << endl;
-
+	ArchivoCsv* autos = Parsear("Fun,Susuki,Negro,IQZ754\nRanger,Ford,Blanco,JVT776");
+    Mostrar(autos);
 
 	return 0;
 }
-
 

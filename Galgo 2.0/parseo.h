@@ -76,6 +76,29 @@ void CopiarCampo(int numeroCampo, const char* registro, char separadorCampo, cha
     *destinoCopia = FinDeCadena;
 }
 
+void Destruir(Campo* campo) {
+    delete []campo->valor;
+    delete campo;
+}
+
+void Destruir(Registro* registro) {
+    if (registro->cantidadCampos > 0) {
+        for (int i = 0; i < registro->cantidadCampos; ++i) {
+            Destruir(registro->campos[i]);
+        }
+        delete []registro->campos;
+    }
+}
+
+void Destruir(ArchivoCsv* archivo) {
+    if (archivo->cantidadRegistros > 0) {
+        for (int i = 0; i < archivo->cantidadRegistros; ++i) {
+            Destruir(archivo->registros[i]);
+        }
+        delete []archivo->registros;
+    }
+}
+
 void Destruir(ResultadoSeparacion* separacion) {
     for (int i = 0; i < separacion->cantidadFilas; ++i) 
         delete []separacion->matriz[i];
@@ -102,7 +125,7 @@ Registro* CrearRegistro(char** campos, int cantidadCampos) {
 
 ResultadoSeparacion* Separar(const char* texto, char token) {
     ResultadoSeparacion* resultado = new ResultadoSeparacion;
-    resultado->cantidadFilas = ContarAparicionesCaracter(texto, FinDeLinea);
+    resultado->cantidadFilas = ContarAparicionesCaracter(texto, FinDeLinea) + 1;
     resultado->matriz = new char*[resultado->cantidadFilas];
     for (int numeroCampo = 0; numeroCampo < resultado->cantidadFilas; ++numeroCampo) {
         // En cada fila reservar tamanio
@@ -129,4 +152,21 @@ ArchivoCsv* Parsear(const char* textoFormateado) {
     return archivoCsv;
 }
 
+void Mostrar(const Campo* campo) {
+    cout << campo->valor;
+}
 
+void Mostrar(const Registro* registro) {
+    for (int i = 0; i < registro->cantidadCampos; ++i) {
+        Mostrar(registro->campos[i]);
+        if (i < registro->cantidadCampos - 1)
+            cout << ",";
+    }
+}
+
+void Mostrar(const ArchivoCsv* archivo) {
+    for (int i = 0; i < archivo->cantidadRegistros; ++i) {
+        Mostrar(archivo->registros[i]);
+        cout << endl;
+    }
+}
