@@ -1,2 +1,6 @@
-﻿  main.cpp
+﻿C:\Apps\VisualStudio\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(534,5): warning MSB8028: El directorio intermedio (C:\Users\Seba\Documents\Undav\Algoritmos y Programación I\\Tmp\) contiene archivos compartidos de otro proyecto (Parseo.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+  ArchivoCsv.cpp
+  main.cpp
+  Campo.cpp
+  Registro.cpp
   Galgo 2.vcxproj -> C:\Users\Seba\Documents\Undav\Algoritmos y Programación I\Bin\Galgo 2_d.exe

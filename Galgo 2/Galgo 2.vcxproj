@@ -24,6 +24,7 @@
     <ProjectGuid>{991e579b-452b-4541-8c94-9bba0153f281}</ProjectGuid>
     <RootNamespace>Galgo2</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Galgo 2</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -162,13 +163,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArchivoCsv.cpp" />
     <ClCompile Include="CadenaCaracteres.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="Campo.cpp" />
+    <ClCompile Include="Registro.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArchivoCsv.h" />
     <ClInclude Include="CadenaCaracteres.h" />
-    <ClInclude Include="Parser.h" />
+    <ClInclude Include="Campo.h" />
+    <ClInclude Include="Registro.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
