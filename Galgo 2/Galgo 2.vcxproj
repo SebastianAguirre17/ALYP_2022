@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ArchivoCsv.cpp" />
+    <ClCompile Include="Batallas.cpp" />
     <ClCompile Include="CadenaCaracteres.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Campo.cpp" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArchivoCsv.h" />
+    <ClInclude Include="Batallas.h" />
     <ClInclude Include="CadenaCaracteres.h" />
     <ClInclude Include="Campo.h" />
     <ClInclude Include="Registro.h" />

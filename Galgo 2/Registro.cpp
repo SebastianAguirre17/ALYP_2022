@@ -18,6 +18,31 @@ RegistroCsv::Registro* RegistroCsv::CrearRegistro(char** campos, int cantidadCam
     return nuevoRegistro;
 }
 
+RegistroCsv::Registro* RegistroCsv::CrearRegistroVacio() {
+    Registro* nuevoRegistro = new Registro;
+    nuevoRegistro->cantidadCampos = 0;
+    return nuevoRegistro;
+}
+
+void RegistroCsv::AgregarCampo(Registro* registro, Campo* campo) {
+    int nuevoTamanio = registro->cantidadCampos + 1;
+    Campo** nuevosCampos = new Campo * [nuevoTamanio];
+    for (int i = 0; i < registro->cantidadCampos; ++i) {
+        nuevosCampos[i] = registro->campos[i];
+    }
+    nuevosCampos[registro->cantidadCampos] = campo;
+
+    /*if (registro->cantidadCampos > 0) {
+        for (int i = 0; i < registro->cantidadCampos; ++i) {
+            Destruir(registro->campos[i]);
+        }
+        delete[]registro->campos;
+    }*/
+
+    registro->campos = nuevosCampos;
+    registro->cantidadCampos = nuevoTamanio;
+}
+
 void RegistroCsv::Destruir(Registro* registro) {
     if (registro->cantidadCampos > 0) {
         for (int i = 0; i < registro->cantidadCampos; ++i) {

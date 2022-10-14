@@ -2,6 +2,8 @@
 
 const int	FinDeCadena = '\0';
 const int	PosInicioDeCadena = 0;
+const char  Agrupador = '|';
+
 
 namespace CadenaCaracteres {
 	void  Copiar(const char* origen, char* destino);

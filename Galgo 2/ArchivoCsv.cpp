@@ -8,7 +8,6 @@ using namespace CadenaCaracteres;
 const char SeparadorCampos = ',';
 const char SeparadorRegistros = '\n';
 
-
 /****   AUXILIARES  *****/
 struct ResultadoSeparacion {
     char** matriz;
@@ -17,7 +16,7 @@ struct ResultadoSeparacion {
 
 ResultadoSeparacion* Separar(const char* texto, char token);
 void Destruir(ResultadoSeparacion* separacion);
-int ContarCaracteresCampo(int numeroCampo, const char* texto, char token);
+int  ContarCaracteresCampo(int numeroCampo, const char* texto, char token);
 void CopiarCampo(int numeroCampo, const char* registro, char separadorCampos, char* destinoCopia);
 /****   AUXILIARES  *****/
 
@@ -38,6 +37,24 @@ ArchivoCSV::ArchivoCsv* ArchivoCSV::Crear(const char* textoFormateado) {
     }
     Destruir(registros);
     return archivoCsv;
+}
+
+ArchivoCSV::ArchivoCsv* ArchivoCSV::CrearArchivoVacio() {
+    ArchivoCsv* archivoCsv = new ArchivoCsv;
+    archivoCsv->cantidadRegistros = 0;
+    return archivoCsv;
+}
+
+void ArchivoCSV::AgregarRegistro(ArchivoCsv* archivo, Registro* registro) {
+    int nuevoTamanio = archivo->cantidadRegistros + 1;
+    Registro** nuevosRegistros = new Registro * [nuevoTamanio];
+    for (int i = 0; i < archivo->cantidadRegistros; ++i) {
+        nuevosRegistros[i] = archivo->registros[i];
+    }
+    nuevosRegistros[archivo->cantidadRegistros] = registro;
+    //delete[]archivo->registros;
+    archivo->registros = nuevosRegistros;
+    archivo->cantidadRegistros = nuevoTamanio;
 }
 
 int ArchivoCSV::ObtenerCantidadRegistros(const ArchivoCsv* archivoCsv) {
@@ -64,7 +81,7 @@ int ContarCaracteresCampo(int numeroCampo, const char* texto, char token) {
         if (*texto == token) ++campoActual;
         else if (numeroCampo == campoActual) ++contador;
     }
-    return contador;
+    return contador; 
 }
 
 void CopiarCampo(int numeroCampo, const char* registro, char separadorCampos, char* destinoCopia) {
@@ -73,18 +90,21 @@ void CopiarCampo(int numeroCampo, const char* registro, char separadorCampos, ch
         if (*registro == separadorCampos) ++campoActual;
         else if (numeroCampo == campoActual) *destinoCopia++ = *registro;
     }
-    *destinoCopia = FinDeCadena;
+    *destinoCopia = FinDeCadena; 
 }
 
 ResultadoSeparacion* Separar(const char* texto, char token) {
     ResultadoSeparacion* nuevoResultado = new ResultadoSeparacion;
     nuevoResultado->cantidadFilas = ContarAparicionesCaracter(texto, token) + 1;
     nuevoResultado->matriz = new char* [nuevoResultado->cantidadFilas];
+    int tamanio;
     for (int numeroCampo = 0; numeroCampo < nuevoResultado->cantidadFilas; ++numeroCampo) {
-        int tamanio = ContarCaracteresCampo(numeroCampo, texto, token) + 1;
+        tamanio = ContarCaracteresCampo(numeroCampo, texto, token) + 1;
+        
         nuevoResultado->matriz[numeroCampo] = new char[tamanio];
         CopiarCampo(numeroCampo, texto, token, nuevoResultado->matriz[numeroCampo]);
     }
+    // if (tamanio == 1 and token == FinDeCadena) nuevoResultado->cantidadFilas--;
     return nuevoResultado;
 }
 
@@ -95,3 +115,4 @@ void Destruir(ResultadoSeparacion* separacion) {
     delete[]separacion->matriz;
     delete separacion;
 }
+

@@ -16,13 +16,19 @@ int main() {
 	cout << "Evaluacion de Avance" << endl;
 
 	char amigo[] = "amigo";
-	char goami[] = "goami";
+	char rot1[] = "goami";
+	char rot2[] = "oamig";
+	char rot3[] = "igoam";
+	char rot4[] = "migoa";
+	char rot5[] = "amigo";
+	char rot6[] = "amigos";
 
-	char caracas[] = "caracas";
-	char caracasCopy[] = "racasapa";
-
-	EsRotacionCiclica(amigo, goami) ? cout << "OK" << endl : cout << "ERROR" << endl;
-	EsRotacionCiclica(caracas, caracasCopy) ? cout << "OK" << endl : cout << "ERROR" << endl;
+	EsRotacionCiclica(amigo, rot1) ? cout << "OK" << endl : cout << "ERROR" << endl;
+	EsRotacionCiclica(amigo, rot2) ? cout << "OK" << endl : cout << "ERROR" << endl;
+	EsRotacionCiclica(amigo, rot3) ? cout << "OK" << endl : cout << "ERROR" << endl;
+	EsRotacionCiclica(amigo, rot4) ? cout << "OK" << endl : cout << "ERROR" << endl;
+	EsRotacionCiclica(amigo, rot5) ? cout << "OK" << endl : cout << "ERROR" << endl;
+	EsRotacionCiclica(amigo, rot6) ? cout << "OK" << endl : cout << "ERROR" << endl;
 
 	return EXIT_SUCCESS;
 }
@@ -41,3 +47,4 @@ int ContarCaracteres(char texto[]) {
 		++contador;
 	return contador;
 }
+
