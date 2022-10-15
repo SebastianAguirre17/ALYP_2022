@@ -104,7 +104,7 @@ ResultadoSeparacion* Separar(const char* texto, char token) {
         nuevoResultado->matriz[numeroCampo] = new char[tamanio];
         CopiarCampo(numeroCampo, texto, token, nuevoResultado->matriz[numeroCampo]);
     }
-    // if (tamanio == 1 and token == FinDeCadena) nuevoResultado->cantidadFilas--;
+    if (tamanio == 1 and token == SeparadorRegistros) nuevoResultado->cantidadFilas--; // TODO
     return nuevoResultado;
 }
 

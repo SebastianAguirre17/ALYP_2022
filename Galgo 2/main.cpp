@@ -39,19 +39,14 @@ int main() {
 }
 
 void MostrarInformeBatallas(char batallasCSV1[], char batallasCSV2[]) {
-	//ArchivoCsv* batallas1 = Crear(batallasCSV1);
-	//ArchivoCsv* batallas2 = Crear(batallasCSV2);
+	ArchivoCsv* batallas1 = Crear(batallasCSV1);
+	ArchivoCsv* batallas2 = Crear(batallasCSV2);
 
-	//ArchivoCsv* batallas  = MergeArchivos(batallas1, batallas2);
+	ArchivoCsv* batallas  = MergeArchivos(batallas1, batallas2);
 
 	// Mostrar(batallas1);
 
-	// MostrarInforme(batallas);
-
-
-	char test[] = "33,|Invasion of Ryamsport, Vinetown, and Starfish Harbor|,Balon/Euron Greyjoy,Joffrey/Tommen Baratheon";
-	ArchivoCsv* aTest = Crear(test);
-	Mostrar(aTest);
+	MostrarInforme(batallas);
 }
 
 void Mostrar(const Campo* campo) {
@@ -61,7 +56,7 @@ void Mostrar(const Campo* campo) {
 void Mostrar(const Registro* registro) {
 	for (int i = 0; i < ObtenerCantidadCampos(registro); ++i) {
 		Mostrar(ObtenerCampo(registro, i));
-		if (i < ObtenerCantidadCampos(registro) - 1)
+		if (i < ObtenerCantidadCampos(registro))
 			cout << "-";
 	}
 }
