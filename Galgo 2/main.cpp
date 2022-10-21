@@ -11,10 +11,6 @@ using namespace RegistroCsv;
 using namespace ArchivoCSV;
 using namespace CadenaCaracteres;
 
-void Mostrar(const Campo* campo);
-void Mostrar(const Registro* registro);
-void Mostrar(const ArchivoCsv* archivoCsv);
-
 // Precondicion: @batallasCSV1 es una cadena de caracteres en formato CSV con los siguientes campos: battle_number,name,attacker_king,defender_king
 // @batallasCSV2 es una cadena de caracteres en formato CSV con los siguientes campos: battle_number,location,region,attacker_outcome
 // Postcondicion: Imprime por salida estandard con el siguiente formato
@@ -41,30 +37,11 @@ int main() {
 void MostrarInformeBatallas(char batallasCSV1[], char batallasCSV2[]) {
 	ArchivoCsv* batallas1 = Crear(batallasCSV1);
 	ArchivoCsv* batallas2 = Crear(batallasCSV2);
-
 	ArchivoCsv* batallas  = MergeArchivos(batallas1, batallas2);
 
-	// Mostrar(batallas1);
-
 	MostrarInforme(batallas);
-}
 
-void Mostrar(const Campo* campo) {
-	cout << ObtenerValor(campo);
+	Destruir(batallas1);
+	Destruir(batallas2);
+	Destruir(batallas);
 }
-
-void Mostrar(const Registro* registro) {
-	for (int i = 0; i < ObtenerCantidadCampos(registro); ++i) {
-		Mostrar(ObtenerCampo(registro, i));
-		if (i < ObtenerCantidadCampos(registro))
-			cout << "-";
-	}
-}
-
-void Mostrar(const ArchivoCsv* archivoCsv) {
-	for (int i = 0; i < ObtenerCantidadRegistros(archivoCsv); ++i) {
-		Mostrar(ObtenerRegistro(archivoCsv, i));
-		cout << endl;
-	}
-}
-

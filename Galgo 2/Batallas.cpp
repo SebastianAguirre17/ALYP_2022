@@ -25,12 +25,12 @@ ArchivoCsv* MergeArchivos(const ArchivoCsv* arch1, const ArchivoCsv* arch2) {
 void MostrarInforme(const ArchivoCsv* archivo) {
 	cout << "Ganadores" << endl;
 	
-	for (int i = 1; i < ObtenerCantidadRegistros(archivo) -1; ++i) { // TODO: Verificar cantidad de registros
+	for (int i = 1; i < ObtenerCantidadRegistros(archivo); ++i) {
 		if (SonIguales(ObtenerValor(ObtenerCampo(ObtenerRegistro(archivo, i), Attacker_outcome)), Win))
 			MostrarGanador(ObtenerRegistro(archivo, i));
 	}
 	cout << endl << "Perdedores" << endl;
-	for (int j = 1; j < ObtenerCantidadRegistros(archivo) -1; ++j) {
+	for (int j = 1; j < ObtenerCantidadRegistros(archivo); ++j) {
 		if (SonIguales(ObtenerValor(ObtenerCampo(ObtenerRegistro(archivo, j), Attacker_outcome)), Less))
 			MostrarPerdedor(ObtenerRegistro(archivo, j));
 	}

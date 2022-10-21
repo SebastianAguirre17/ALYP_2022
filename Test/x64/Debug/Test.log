@@ -1,3 +1,2 @@
 ﻿  main.cpp
-C:\Users\Seba\Documents\Undav\Algoritmos y Programación I\Test\main.cpp(108,43): warning C4244: 'return': conversión de '__int64' a 'int'; posible pérdida de datos
   Test.vcxproj -> C:\Users\Seba\Documents\Undav\Algoritmos y Programación I\x64\Debug\Test.exe

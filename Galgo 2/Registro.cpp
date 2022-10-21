@@ -30,14 +30,7 @@ void RegistroCsv::AgregarCampo(Registro* registro, Campo* campo) {
     for (int i = 0; i < registro->cantidadCampos; ++i) {
         nuevosCampos[i] = registro->campos[i];
     }
-    nuevosCampos[registro->cantidadCampos] = campo;
-
-    /*if (registro->cantidadCampos > 0) {
-        for (int i = 0; i < registro->cantidadCampos; ++i) {
-            Destruir(registro->campos[i]);
-        }
-        delete[]registro->campos;
-    }*/
+    nuevosCampos[registro->cantidadCampos] = CrearCampo(ObtenerValor(campo));
 
     registro->campos = nuevosCampos;
     registro->cantidadCampos = nuevoTamanio;

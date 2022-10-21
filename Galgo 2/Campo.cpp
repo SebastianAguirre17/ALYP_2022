@@ -18,7 +18,7 @@ char* CampoCsv::ObtenerValor(const Campo* campo) {
 }
 
 void CampoCsv::Destruir(Campo* campo) {
-    delete[]campo->valor;
+    // delete[]campo->valor;
     delete campo;
 }
 

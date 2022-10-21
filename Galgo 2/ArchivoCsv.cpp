@@ -8,7 +8,6 @@ using namespace CadenaCaracteres;
 const char SeparadorCampos = ',';
 const char SeparadorRegistros = '\n';
 
-/****   AUXILIARES  *****/
 struct ResultadoSeparacion {
     char** matriz;
     int cantidadFilas;
@@ -16,9 +15,6 @@ struct ResultadoSeparacion {
 
 ResultadoSeparacion* Separar(const char* texto, char token);
 void Destruir(ResultadoSeparacion* separacion);
-int  ContarCaracteresCampo(int numeroCampo, const char* texto, char token);
-void CopiarCampo(int numeroCampo, const char* registro, char separadorCampos, char* destinoCopia);
-/****   AUXILIARES  *****/
 
 struct ArchivoCSV::ArchivoCsv {
     Registro** registros;
@@ -52,7 +48,7 @@ void ArchivoCSV::AgregarRegistro(ArchivoCsv* archivo, Registro* registro) {
         nuevosRegistros[i] = archivo->registros[i];
     }
     nuevosRegistros[archivo->cantidadRegistros] = registro;
-    //delete[]archivo->registros;
+ 
     archivo->registros = nuevosRegistros;
     archivo->cantidadRegistros = nuevoTamanio;
 }
@@ -75,34 +71,16 @@ void ArchivoCSV::Destruir(ArchivoCsv* archivo) {
     delete archivo;
 }
 
-int ContarCaracteresCampo(int numeroCampo, const char* texto, char token) {
-    int contador = 0, campoActual = 0;
-    for (; *texto and campoActual <= numeroCampo; ++texto) {
-        if (*texto == token) ++campoActual;
-        else if (numeroCampo == campoActual) ++contador;
-    }
-    return contador; 
-}
-
-void CopiarCampo(int numeroCampo, const char* registro, char separadorCampos, char* destinoCopia) {
-    int campoActual = 0;
-    for (; *registro and campoActual <= numeroCampo; ++registro) {
-        if (*registro == separadorCampos) ++campoActual;
-        else if (numeroCampo == campoActual) *destinoCopia++ = *registro;
-    }
-    *destinoCopia = FinDeCadena; 
-}
-
 ResultadoSeparacion* Separar(const char* texto, char token) {
     ResultadoSeparacion* nuevoResultado = new ResultadoSeparacion;
     nuevoResultado->cantidadFilas = ContarAparicionesCaracter(texto, token) + 1;
     nuevoResultado->matriz = new char* [nuevoResultado->cantidadFilas];
     int tamanio;
     for (int numeroCampo = 0; numeroCampo < nuevoResultado->cantidadFilas; ++numeroCampo) {
-        tamanio = ContarCaracteresCampo(numeroCampo, texto, token) + 1;
+        tamanio = CadenaCaracteres::ContarCaracteresCampo(numeroCampo, texto, token) + 1;
         
         nuevoResultado->matriz[numeroCampo] = new char[tamanio];
-        CopiarCampo(numeroCampo, texto, token, nuevoResultado->matriz[numeroCampo]);
+        CadenaCaracteres::CopiarCampo(numeroCampo, texto, token, nuevoResultado->matriz[numeroCampo]);
     }
     if (tamanio == 1 and token == SeparadorRegistros) nuevoResultado->cantidadFilas--; // TODO
     return nuevoResultado;
@@ -116,3 +94,6 @@ void Destruir(ResultadoSeparacion* separacion) {
     delete separacion;
 }
 
+bool EsCSV_Valido(const Registro* registro, int cantidadFilas) {
+    return (ObtenerCantidadCampos(registro) == cantidadFilas);
+}

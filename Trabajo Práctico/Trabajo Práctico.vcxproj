@@ -129,7 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Particion.cpp" />
     <ClCompile Include="Registro.cpp" />
-    <ClCompile Include="Trabajo Práctico.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Particion.h" />
