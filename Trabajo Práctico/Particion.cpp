@@ -2,11 +2,18 @@
 #include <iostream>
 
 struct UDBParticion::Particion {
-
+	int inicioRango;
+	int finRango;
 };
 
 UDBParticion::Particion* UDBParticion::Crear(int inicioRango, int finRango) {
-	return NULL;
+	if (inicioRango < 0 or finRango < inicioRango)
+		return NULL;
+
+	Particion* nuevaParticion = new Particion;
+	nuevaParticion->inicioRango = inicioRango;
+	nuevaParticion->finRango = finRango;
+	return nuevaParticion;
 }
 
 Registro* UDBParticion::ObtenerRegistro(Particion* particion, int identificador) {

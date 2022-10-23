@@ -12,11 +12,11 @@ Particion* CrearEstudiantesAlgortimos();
 int main()
 {
     Particion* estudiantesAlgoritmos = CrearEstudiantesAlgortimos();
-    ActualizarRegistro(estudiantesAlgoritmos, 1003, "");
+    /*ActualizarRegistro(estudiantesAlgoritmos, 1003, "");
     EliminarRegistro(estudiantesAlgoritmos, 1004);
     Mostrar(estudiantesAlgoritmos, 1000, 1003);
     Mostrar(estudiantesAlgoritmos, 1005, 1010);
-    Destruir(estudiantesAlgoritmos);
+    Destruir(estudiantesAlgoritmos);*/
 }
 
 void Mostrar(Particion* particion, int comienzo, int fin) {
@@ -27,7 +27,7 @@ void Mostrar(Particion* particion, int comienzo, int fin) {
 }
 
 Particion* CrearEstudiantesAlgortimos() {
-    Particion* estudiantes = Crear(1000, 10010);
+    Particion* estudiantes = Crear(1000, 1010);
     AgregarRegistro(estudiantes, "Alejandro Colli");
     AgregarRegistro(estudiantes, "Alex Urquiza");
     AgregarRegistro(estudiantes, "Cesar Vacirca");
